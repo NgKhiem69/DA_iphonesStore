@@ -60,4 +60,8 @@ public class CartService {
             }
         }
     }
+    public void clearCart(Long userId) {
+        List<CartItem> items = cartItemRepository.findByUserId(userId);
+        cartItemRepository.deleteAll(items);
+    }
 }

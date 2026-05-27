@@ -10,11 +10,21 @@
     <div th:replace="~{fragments :: header}"></div>
 
     <main>
-        <h2>Đây là vùng nội dung thân trang (Main Content)</h2>
-        <p>Phần này sẽ tự động cuộn, trong khi Header ở trên và Footer ở dưới luôn được giữ cố định.</p>
+        <div class="section-title">Our Products</div>
+        <h2 class="section-heading">Khám Phá Sản Phẩm</h2>
         
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <p>Kéo xuống để xem Footer...</p>
+        <div class="product-grid">
+            <div class="product-card" th:each="product : ${products}">
+                <img th:src="${product.imageUrl}" class="product-image" alt="Hình sản phẩm">
+                
+                <a th:href="@{/cart/add/{id}(id=${product.id})}" class="add-to-cart-btn">Add To Cart</a>
+                
+                <div class="product-info">
+                    <a href="#" class="product-name" th:text="${product.name}">Tên sản phẩm</a>
+                    <span class="product-price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">Giá tiền</span>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div th:replace="~{fragments :: footer}"></div>

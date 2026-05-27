@@ -44,4 +44,39 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
+    @GetMapping("/signup")
+    public String showSignupForm() {
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public String processSignup(@RequestParam("name") String name,
+                                @RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                Model model) {
+        
+        if (userRepository.findByEmail(email) != null) {
+            model.addAttribute("error", "Email này đã được sử dụng!");
+            return "signup";
+        }
+        
+        String firstName = name;
+        String lastName = "";
+        if (name.contains(" ")) {
+            int lastSpaceIndex = name.lastIndexOf(" ");
+            firstName = name.substring(0, lastSpaceIndex);
+            lastName = name.substring(lastSpaceIndex + 1);
+        }
+
+        User newUser = new User();
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setRole("USER");
+        
+        userRepository.save(newUser);
+        
+        return "redirect:/login?registered=true";
+    }
 }

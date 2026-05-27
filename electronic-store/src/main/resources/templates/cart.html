@@ -120,7 +120,7 @@
                             <span class="fw-bold" th:text="${#numbers.formatDecimal(totalCartPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
                         </div>
                         
-                        <button type="button" class="btn btn-red w-100 py-3 fw-medium">Process to checkout</button>
+                        <a th:href="@{/cart/checkout}" class="btn btn-red w-100 py-3 fw-medium text-center text-decoration-none d-block">Process to checkout</a>
                     </div>
                 </div>
             </div>

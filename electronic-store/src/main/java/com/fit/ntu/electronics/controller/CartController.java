@@ -1,6 +1,7 @@
 package com.fit.ntu.electronics.controller;
 
 import com.fit.ntu.electronics.model.CartItem;
+import com.fit.ntu.electronics.repository.OrderRepository;
 import com.fit.ntu.electronics.service.CartService;
 import com.fit.ntu.electronics.service.EmailService;
 
@@ -86,6 +87,8 @@ public class CartController {
         model.addAttribute("cartItems", cartService.getCartItemsByUser(userId));
         return "cart";
     }
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("/remove/{cartItemId}")
     public String removeFromCart(@PathVariable("cartItemId") Long cartItemId) {

@@ -204,3 +204,54 @@ footer {
     font-weight: bold;
     font-size: 16px;
 }
+/* --- PHẦN TRANG TÀI KHOẢN (PROFILE) --- */
+.account-sidebar .menu-title {
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.account-sidebar ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.account-sidebar ul li {
+    margin-bottom: 8px;
+}
+
+.account-sidebar ul li a {
+    text-decoration: none;
+    color: #7d8184;
+    transition: 0.3s;
+}
+
+.account-sidebar ul li a:hover, 
+.account-sidebar ul li a.active {
+    color: #db4444; /* Màu đỏ chủ đạo */
+    font-weight: 500;
+}
+
+.profile-form-box {
+    box-shadow: 0 1px 15px rgba(0,0,0,0.05);
+    border-radius: 4px;
+    padding: 40px;
+    background: #fff;
+}
+
+.profile-form-box .form-control {
+    background-color: #f5f5f5; /* Nền xám cho ô input */
+    border: none;
+    padding: 12px 15px;
+}
+
+.profile-form-box .form-control:focus {
+    box-shadow: none;
+    border: 1px solid #db4444;
+}
+
+.profile-form-box label {
+    margin-bottom: 8px;
+    font-weight: 500;
+}

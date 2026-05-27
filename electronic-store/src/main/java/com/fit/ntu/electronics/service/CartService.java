@@ -8,7 +8,6 @@ import com.fit.ntu.electronics.repository.ProductRepository;
 import com.fit.ntu.electronics.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -29,7 +28,6 @@ public class CartService {
 
         if (product != null && user != null) {
             CartItem existingItem = cartItemRepository.findByUserIdAndProductId(userId, productId);
-            
             if (existingItem != null) {
                 existingItem.setQuantity(existingItem.getQuantity() + 1);
                 cartItemRepository.save(existingItem);
@@ -45,5 +43,21 @@ public class CartService {
 
     public List<CartItem> getCartItemsByUser(Long userId) {
         return cartItemRepository.findByUserId(userId);
+    }
+
+    public void removeFromCart(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
+
+    public void updateQuantity(Long cartItemId, int quantity) {
+        CartItem item = cartItemRepository.findById(cartItemId).orElse(null);
+        if (item != null) {
+            if (quantity <= 0) {
+                cartItemRepository.delete(item);
+            } else {
+                item.setQuantity(quantity);
+                cartItemRepository.save(item);
+            }
+        }
     }
 }

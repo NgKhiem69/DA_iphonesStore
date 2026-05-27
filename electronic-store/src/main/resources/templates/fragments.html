@@ -42,38 +42,83 @@
         </header>
     </div>
 
-    <div th:fragment="footer">
-        <footer>
-            <div class="footer-col">
-                <h3>Exclusive</h3>
-                <p>Subscribe</p>
-                <p>Get 10% off your first order</p>
+    <footer th:fragment="footer" style="background-color: #000000; color: #ffffff;" class="pt-5 mt-5">
+    <div class="container pt-4 pb-2">
+        <div class="row">
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h4 class="fw-bold mb-4">Exclusive</h4>
+                <h5 class="fw-medium mb-4">Subscribe</h5>
+                <p class="mb-3">Get 10% off your first order</p>
+                <form action="#" method="post" class="position-relative mt-4">
+                    <input type="email" placeholder="Enter your email" class="form-control bg-transparent text-white rounded-1 py-2 ps-3 pe-5" style="border: 1.5px solid #ffffff;">
+                    <button type="submit" class="btn text-white position-absolute end-0 top-50 translate-middle-y border-0 pe-3">
+                        <i class="bi bi-send fs-5"></i>
+                    </button>
+                </form>
             </div>
-            <div class="footer-col">
-                <h3>Support</h3>
-                <p>Nha Trang University</p>
-                <p>exclusive@gmail.com</p>
-                <p>+84 123 456 789</p>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="fw-bold mb-4">Support</h5>
+                <p class="mb-3 lh-lg">111 Bijoy sarani, Dhaka,<br>DH 1515, Bangladesh.</p>
+                <p class="mb-3 mt-4">exclusive@gmail.com</p>
+                <p class="mt-3">+88015-88888-9999</p>
             </div>
-            <div class="footer-col">
-                <h3>Account</h3>
-                <a href="#">My Account</a>
-                <a href="#">Login / Register</a>
-                <a th:href="@{/cart}">Cart</a>
-                <a href="#">Wishlist</a>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="fw-bold mb-4">Account</h5>
+                <ul class="list-unstyled lh-lg">
+                    <li class="mb-2"><a href="/profile" class="text-white text-decoration-none">My Account</a></li>
+                    <li class="mb-2"><a href="/login" class="text-white text-decoration-none">Login / Register</a></li>
+                    <li class="mb-2"><a href="/cart" class="text-white text-decoration-none">Cart</a></li>
+                    <li class="mb-2"><a href="/wishlist" class="text-white text-decoration-none">Wishlist</a></li>
+                    <li class="mb-2"><a href="/" class="text-white text-decoration-none">Shop</a></li>
+                </ul>
             </div>
-            <div class="footer-col">
-                <h3>Quick Link</h3>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms Of Use</a>
-                <a href="#">FAQ</a>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="fw-bold mb-4">Quick Link</h5>
+                <ul class="list-unstyled lh-lg">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Terms Of Use</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                </ul>
             </div>
-            <div class="footer-col">
-                <h3>Download App</h3>
-                <p>Save $3 with App New User Only</p>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="fw-bold mb-4">Download App</h5>
+                <p class="mb-2" style="font-size: 12px; color: #a9a9a9;">Save $3 with App New User Only</p>
+                <div class="d-flex mb-4 mt-3 align-items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QR Code" style="width: 80px; height: 80px;" class="me-2 bg-white p-1 rounded-1">
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 38px;">
+                        </a>
+                        <a href="#">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style="height: 38px;">
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex gap-4 mt-4 fs-5">
+                    <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                </div>
             </div>
-        </footer>
+
+        </div>
     </div>
+    
+    <div style="border-top: 1px solid #1f1f1f;" class="mt-4">
+        <div class="container text-center py-3" style="color: #3d3d3d;">
+            <p class="m-0 py-2 fs-6">
+                <i class="bi bi-c-circle me-1"></i> Copyright Rimel 2022. All right reserved
+            </p>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

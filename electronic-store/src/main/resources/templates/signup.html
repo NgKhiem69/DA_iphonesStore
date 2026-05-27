@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Ký - Exclusive</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .login-image-container {
+            background-color: #dbedf2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 550px;
+            padding: 20px;
+        }
+        .login-image-container img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .login-form-container {
+            padding: 80px;
+        }
+        .form-underline {
+            border: none;
+            border-bottom: 1px solid #b3b3b3;
+            border-radius: 0;
+            padding: 12px 0;
+            box-shadow: none !important;
+            transition: border-color 0.3s;
+        }
+        .form-underline:focus {
+            border-bottom-color: #db4444;
+        }
+        .btn-exclusive {
+            background-color: #db4444;
+            color: white;
+            border: none;
+            padding: 16px 0;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-exclusive:hover {
+            background-color: #c93030;
+            color: white;
+        }
+        .btn-google {
+            background-color: white;
+            color: #000;
+            border: 1px solid #000;
+            padding: 16px 0;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-google:hover {
+            background-color: #f8f9fa;
+        }
+        .link-exclusive {
+            color: #000;
+            text-decoration: underline;
+        }
+        .link-exclusive:hover {
+            color: #db4444;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div th:replace="~{fragments :: header}"></div>
+
+    <main class="container-fluid px-0 my-5">
+        <div class="row g-0 align-items-center">
+            
+            <div class="col-md-6 col-lg-7">
+                <div class="login-image-container">
+                    <img th:src="@{/images/login-side.png}" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=1000&auto=format&fit=crop" alt="Shopping Cart">
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="login-form-container">
+                    <h2 class="fw-bold mb-3 fs-1">Tạo tài khoản</h2>
+                    <p class="text-dark mb-5 fs-5">Nhập thông tin của bạn bên dưới</p>
+                    
+                    <div th:if="${error}" class="alert alert-danger py-2 mb-4" th:text="${error}"></div>
+                    
+                    <form th:action="@{/signup}" method="post">
+                        <div class="mb-4">
+                            <input type="text" name="name" class="form-control form-underline fs-5" placeholder="Họ và tên" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" name="email" class="form-control form-underline fs-5" placeholder="Email hoặc Số điện thoại" required>
+                        </div>
+                        <div class="mb-5">
+                            <input type="password" name="password" class="form-control form-underline fs-5" placeholder="Mật khẩu" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-exclusive w-100 fs-5 mb-3">Tạo tài khoản</button>
+                        
+                        <button type="button" class="btn btn-google w-100 fs-5 mb-5">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" style="width: 24px; height: 24px;">
+                            Đăng ký bằng Google
+                        </button>
+                    </form>
+                    
+                    <div class="text-center fs-5">
+                        <span class="text-muted">Đã có tài khoản?</span>
+                        <a th:href="@{/login}" class="link-exclusive fw-medium ms-2">Đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

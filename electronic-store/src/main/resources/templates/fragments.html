@@ -19,8 +19,15 @@
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">About</a></li>
                 <li class="nav-item" th:if="${session.userId == null}">
-        		<a class="nav-link text-dark" th:href="@{/login}">Log in</a>
+        		<a class="nav-link text-dark text-decoration-underline" 
+           		th:if="${#httpServletRequest.requestURI == '/login'}" 
+           		th:href="@{/signup}">Sign in</a>
+           
+        		<a class="nav-link text-dark text-decoration-underline" 
+           		th:unless="${#httpServletRequest.requestURI == '/login'}" 
+           		th:href="@{/login}">Log in</a>
     			</li>
+    
     			<li class="nav-item" th:if="${session.userId != null}">
         		<a class="nav-link text-danger fw-bold" th:href="@{/logout}">Log out</a>
     			</li>

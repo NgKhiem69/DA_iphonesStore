@@ -11,23 +11,23 @@
         aspect-ratio: 1 / 1; 
         transition: all 0.3s ease;
         border: 1px solid #e5e5e5;
-        background-color: #ffffff; /* Thiết lập nền trắng mặc định */
-        color: #000000; /* Thiết lập chữ đen mặc định */
+        background-color: #ffffff;
+        color: #000000;
     }
     .category-card:hover, .category-card.active {
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        background-color: #db4444 !important; /* Đổi nền thành đỏ */
-        border-color: #db4444 !important; /* Đổi viền thành đỏ */
-        color: #ffffff !important; /* Đổi toàn bộ chữ thành trắng */
+        background-color: #db4444 !important;
+        border-color: #db4444 !important;
+        color: #ffffff !important;
     }
     .category-card:hover i, .category-card.active i {
-        color: #ffffff !important; /* Đảm bảo icon cũng đổi sang trắng */
+        color: #ffffff !important;
     }
     .category-icon {
         font-size: 3rem; 
         margin-bottom: 15px;
     }
-</style>
+    </style>
 </head>
 <body>
 
@@ -42,25 +42,21 @@
         <h2 class="fw-bold mb-4">Browse By Category</h2>
 
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 mb-5 pb-4 border-bottom">
-    <div class="col" th:each="cat : ${categories}">
-        
-        <a th:href="${selectedCategory == cat.id} ? @{/} : @{/(categoryId=${cat.id})}"
-           class="category-card text-decoration-none d-flex flex-column align-items-center justify-content-center rounded"
-           th:classappend="${selectedCategory == cat.id} ? 'active' : ''">
-            
-            <i th:class="${cat.icon} + ' category-icon'"></i>
-            
-            <span class="fw-medium" th:text="${cat.name}"></span>
-        </a>
-        
-    </div>
-</div>
+            <div class="col" th:each="cat : ${categories}">
+                <a th:href="${selectedCategory == cat.id} ? @{/} : @{/(categoryId=${cat.id})}"
+                   class="category-card text-decoration-none d-flex flex-column align-items-center justify-content-center rounded"
+                   th:classappend="${selectedCategory == cat.id} ? 'active' : ''">
+                    <i th:class="${cat.icon} + ' category-icon'"></i>
+                    <span class="fw-medium" th:text="${cat.name}"></span>
+                </a>
+            </div>
+        </div>
 
         <div class="row mt-5">
             <div class="col-12">
+                
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
                     <div class="col" th:each="sp : ${productPage.content}">
-                    
                         <div class="card h-100 shadow-sm position-relative">
                             
                             <a th:href="${session.userId != null ? '/wishlist/add/' + sp.id : '/login'}" class="wishlist-btn position-absolute top-0 end-0 p-2 text-danger" style="z-index: 10;">
@@ -93,66 +89,31 @@
                             </div>
 
                         </div>
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-    <div class="col" th:each="sp : ${productPage.content}">
-        <div class="card h-100 shadow-sm position-relative">
-            
-            <a th:href="${session.userId != null ? '/wishlist/add/' + sp.id : '/login'}" class="wishlist-btn position-absolute top-0 end-0 p-2 text-danger" style="z-index: 10;">
-                <i class="bi bi-heart"></i>
-            </a>
-
-            <img th:if="${sp.imageUrl != null and !sp.imageUrl.isEmpty()}" 
-                 th:src="${sp.imageUrl}" 
-                 class="card-img-top" 
-                 alt="Sản phẩm" 
-                 style="height: 200px; object-fit: contain; padding: 10px;" />
-                 
-            <img th:unless="${sp.imageUrl != null and !sp.imageUrl.isEmpty()}" 
-                 src="https://via.placeholder.com/300x300" 
-                 class="card-img-top" 
-                 alt="Chưa có ảnh" 
-                 style="height: 200px; object-fit: contain; padding: 10px;" />
-
-            <div class="card-body">
-                <h6 class="card-title">
-                    <a th:href="@{/cart/add/{id}(id=${sp.id})}" class="text-decoration-none text-dark" th:text="${sp.name}"></a>
-                </h6>
-                <div class="fw-bold text-danger fs-5" th:text="${#numbers.formatDecimal(sp.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></div>
-            </div>
-
-            <div class="card-footer bg-white border-0">
-                <a th:href="${session.userId != null ? '/cart/add/' + sp.id : '/login'}" class="btn btn-sm btn-outline-danger w-100">
-                    <i class="bi bi-cart-plus"></i> Thêm vào giỏ
-                </a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="mt-5 d-flex justify-content-center" th:if="${productPage.totalPages > 1}">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${productPage.first} ? 'disabled'">
-                <a class="page-link text-danger" th:href="@{/(categoryId=${selectedCategory}, page=${productPage.number - 1})}">Trước</a>
-            </li>
-            
-            <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
-                th:classappend="${productPage.number == i} ? 'active'">
-                <a class="page-link" 
-                   th:style="${productPage.number == i} ? 'background-color: #db4444; border-color: #db4444; color: white;' : 'color: #db4444;'" 
-                   th:href="@{/(categoryId=${selectedCategory}, page=${i})}" 
-                   th:text="${i + 1}"></a>
-            </li>
-            
-            <li class="page-item" th:classappend="${productPage.last} ? 'disabled'">
-                <a class="page-link text-danger" th:href="@{/(categoryId=${selectedCategory}, page=${productPage.number + 1})}">Sau</a>
-            </li>
-        </ul>
-    </nav>
-</div>
                     </div>
                 </div>
+
+                <div class="mt-5 d-flex justify-content-center" th:if="${productPage.totalPages > 1}">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${productPage.first} ? 'disabled'">
+                                <a class="page-link text-danger" th:href="@{/(categoryId=${selectedCategory}, page=${productPage.number - 1})}">Trước</a>
+                            </li>
+                            
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
+                                th:classappend="${productPage.number == i} ? 'active'">
+                                <a class="page-link" 
+                                   th:style="${productPage.number == i} ? 'background-color: #db4444; border-color: #db4444; color: white;' : 'color: #db4444;'" 
+                                   th:href="@{/(categoryId=${selectedCategory}, page=${i})}" 
+                                   th:text="${i + 1}"></a>
+                            </li>
+                            
+                            <li class="page-item" th:classappend="${productPage.last} ? 'disabled'">
+                                <a class="page-link text-danger" th:href="@{/(categoryId=${selectedCategory}, page=${productPage.number + 1})}">Sau</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </div>
     </main>

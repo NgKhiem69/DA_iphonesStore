@@ -30,7 +30,7 @@ public class HomeController {
         
         List<Category> categories = categoryRepository.findAll();
         
-        Pageable pageable = PageRequest.of(page, 18);
+        Pageable pageable = PageRequest.of(page, 16);
         Page<Product> productPage;
 
         if (categoryId != null) {

@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-
+    <div th:fragment="sidebar" class="bg-dark text-white p-3 vh-100" style="width: 250px; position: fixed;">
+        <h4 class="text-center mb-4 text-danger fw-bold">Admin Panel</h4>
+        <ul class="nav flex-column gap-2">
+            <li class="nav-item">
+                <a th:href="@{/admin}" class="nav-link text-white bg-secondary rounded">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/admin/products}" class="nav-link text-white">Quản lý Sản phẩm</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="@{/admin/orders}" class="nav-link text-white">Quản lý Đơn hàng</a>
+            </li>
+            <li class="nav-item mt-5">
+                <a th:href="@{/}" class="nav-link text-danger">Quay lại Cửa hàng</a>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

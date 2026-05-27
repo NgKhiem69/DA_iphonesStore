@@ -11,20 +11,29 @@
 
     <div th:replace="~{fragments :: header}"></div>
 
-  <main class="container my-5">
+    <main class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-5 mt-4">
+        <h5 class="fw-bold m-0">Wishlist (<span th:text="${wishlistItems.size()}"></span>)</h5>
+        <button class="btn btn-outline-dark px-4 py-2 fw-medium">Move All To Bag</button>
+    </div>
+
     <div class="row">
         <div class="col-12">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-                <div class="col" th:each="sp : ${products}">
+                <div class="col" th:each="item : ${wishlistItems}">
                     <div class="card h-100 shadow-sm position-relative">
 
-                        <img th:if="${sp.imageUrl != null and !sp.imageUrl.isEmpty()}" 
-                             th:src="${sp.imageUrl}" 
+                        <a th:href="@{/wishlist/remove/{id}(id=${item.id})}" class="position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="top: 10px; right: 10px; width: 34px; height: 34px; color: black; text-decoration: none; z-index: 10;">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+
+                        <img th:if="${item.product.imageUrl != null and !item.product.imageUrl.isEmpty()}" 
+                             th:src="${item.product.imageUrl}" 
                              class="card-img-top" 
                              alt="Sản phẩm" 
                              style="height: 200px; object-fit: contain; padding: 10px;" />
                              
-                        <img th:unless="${sp.imageUrl != null and !sp.imageUrl.isEmpty()}" 
+                        <img th:unless="${item.product.imageUrl != null and !item.product.imageUrl.isEmpty()}" 
                              src="https://via.placeholder.com/300x300" 
                              class="card-img-top" 
                              alt="Chưa có ảnh" 
@@ -32,13 +41,13 @@
 
                         <div class="card-body">
                             <h6 class="card-title">
-                                <a th:href="@{/cart/add/{id}(id=${sp.id})}" class="text-decoration-none text-dark" th:text="${sp.name}"></a>
+                                <a th:href="@{/cart/add/{id}(id=${item.product.id})}" class="text-decoration-none text-dark" th:text="${item.product.name}"></a>
                             </h6>
-                            <div class="fw-bold text-danger fs-5" th:text="${#numbers.formatDecimal(sp.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></div>
+                            <div class="fw-bold text-danger fs-5" th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></div>
                         </div>
 
                         <div class="card-footer bg-white border-0">
-                            <a th:href="@{/cart/add/{id}(id=${sp.id})}" class="btn btn-sm btn-outline-danger w-100">
+                            <a th:href="@{/cart/add/{id}(id=${item.product.id})}" class="btn btn-sm btn-outline-danger w-100">
                                 <i class="bi bi-cart-plus"></i> Thêm vào giỏ
                             </a>
                         </div>

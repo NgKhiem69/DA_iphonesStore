@@ -1,6 +1,7 @@
 package com.fit.ntu.electronics.controller;
 
 import com.fit.ntu.electronics.model.CartItem;
+import com.fit.ntu.electronics.model.Order;
 import com.fit.ntu.electronics.repository.OrderRepository;
 import com.fit.ntu.electronics.service.CartService;
 import com.fit.ntu.electronics.service.EmailService;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -44,6 +47,12 @@ public class CartController {
                 .append("<td style='padding: 10px; border: 1px solid #ddd; text-align: right;'>").append(String.format("%,.0f", subtotal)).append(" VNĐ</td>")
                 .append("</tr>");
         }
+        Order order = new Order();
+        order.setAddress("Nha Trang, Khánh Hòa");
+        order.setPhone("0123456789");
+        order.setTotalPrice(BigDecimal.valueOf(total));
+        order.setStatus("Đang chờ duyệt");
+        orderRepository.save(order);
         
         String emailContent = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e5e5; padding: 20px;'>"
                 + "<h2 style='color: #db4444; text-align: center;'>CẢM ƠN BẠN ĐÃ ĐẶT HÀNG!</h2>"

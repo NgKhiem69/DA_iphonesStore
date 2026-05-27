@@ -2,47 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cửa Hàng Điện Tử NTU</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .container { display: flex; }
-        .sidebar { width: 20%; padding-right: 20px; border-right: 1px solid #ccc; }
-        .content { width: 80%; padding-left: 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .product-card { border: 1px solid #ddd; padding: 15px; border-radius: 5px; text-align: center; }
-        .product-card img { max-width: 100%; height: 150px; object-fit: contain; }
-        .price { color: red; font-weight: bold; }
-        .btn { background-color: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 3px; display: inline-block; }
-    </style>
+    <title>Trang Chủ - Exclusive</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <header>
-        <h1>Điện Tử NTU - Điện Thoại & Laptop Chính Hãng</h1>
-        <a th:href="@{/admin/dashboard}">Vào trang Admin</a>
-        <hr>
-    </header>
-    <div class="container">
-        <div class="sidebar">
-            <h3>Danh mục sản phẩm</h3>
-            <ul>
-                <li><a th:href="@{/}">Tất cả sản phẩm</a></li>
-                <li th:each="cat : ${categories}">
-                    <a th:href="@{/(categoryId=${cat.id})}" th:text="${cat.name}"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="content">
-            <h2>Sản phẩm nổi bật</h2>
-            <div class="product-grid">
-                <div class="product-card" th:each="product : ${products}">
-                    <img th:src="${product.imageUrl}" alt="">
-                    <h4 th:text="${product.name}"></h4>
-                    <p th:text="${product.brand}"></p>
-                    <p class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></p>
-                    <a href="#" class="btn">Thêm vào giỏ hàng</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <div th:replace="~{fragments :: header}"></div>
+
+    <main>
+        <h2>Đây là vùng nội dung thân trang (Main Content)</h2>
+        <p>Phần này sẽ tự động cuộn, trong khi Header ở trên và Footer ở dưới luôn được giữ cố định.</p>
+        
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <p>Kéo xuống để xem Footer...</p>
+    </main>
+
+    <div th:replace="~{fragments :: footer}"></div>
+
 </body>
 </html>

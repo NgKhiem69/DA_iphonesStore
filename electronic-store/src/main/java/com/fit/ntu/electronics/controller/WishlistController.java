@@ -1,11 +1,13 @@
 package com.fit.ntu.electronics.controller;
 
+import com.fit.ntu.electronics.model.WishlistItem;
 import com.fit.ntu.electronics.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/wishlist")
@@ -26,7 +28,9 @@ public class WishlistController {
     @GetMapping
     public String viewWishlist(Model model, HttpSession session) {
         Long userId = getOrCreateUserId(session);
-        model.addAttribute("wishlistItems", wishlistService.getWishlistByUser(userId));
+        List<WishlistItem> items = wishlistService.getWishlistByUser(userId);
+        model.addAttribute("wishlistItems", items);
+        model.addAttribute("wishlistCount", items.size());
         return "wishlist";
     }
 

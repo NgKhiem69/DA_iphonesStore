@@ -12,34 +12,39 @@
     <div th:replace="~{fragments :: header}"></div>
 
     <main class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div class="d-flex align-items-center">
             <h5 class="fw-bold m-0">Wishlist (<span th:text="${wishlistItems.size()}"></span>)</h5>
-            <button class="btn btn-outline-dark px-4 py-2 fw-medium">Move All To Bag</button>
         </div>
+        <button class="btn btn-outline-dark px-4 py-2">Move All To Bag</button>
+    </div>
 
-        <div class="product-grid">
-            <div class="product-card" th:each="item : ${wishlistItems}">
-                <div class="product-image-box">
-                    <a th:href="@{/wishlist/remove/{id}(id=${item.id})}" class="position-absolute top-0 end-0 m-2 text-dark bg-white rounded-circle p-1 shadow-sm d-flex" style="text-decoration: none; z-index: 10;">
-                        <i class="bi bi-trash3"></i>
-                    </a>
+    <div class="product-grid">
+        <div class="product-card" th:each="item : ${wishlistItems}">
+            
+            <div class="product-image-box">
+                <a th:href="@{/wishlist/remove/{id}(id=${item.id})}" 
+                   class="position-absolute top-0 end-0 m-2 bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                   style="width: 34px; height: 34px; color: black; text-decoration: none; z-index: 10;">
+                    <i class="bi bi-trash"></i>
+                </a>
 
-                    <img th:src="${item.product.imageUrl}" class="product-image" alt="Product">
-                    
-                    <a th:href="@{/cart/add/{id}(id=${item.product.id})}" class="add-to-cart-btn">
-                        <i class="bi bi-cart3 me-2"></i> Add To Cart
-                    </a>
-                </div>
+                <img th:src="${item.product.imageUrl}" class="product-image" alt="Hình sản phẩm">
                 
-                <div class="product-details">
-                    <p class="product-name" th:text="${item.product.name}"></p>
-                    <p class="product-price">
-                        <span class="price" th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
-                    </p>
-                </div>
+                <a th:href="@{/cart/add/{id}(id=${item.product.id})}" class="add-to-cart-btn">
+                    <i class="bi bi-cart3 me-2"></i> Add To Cart
+                </a>
+            </div>
+            
+            <div class="product-details">
+                <p class="product-name" th:text="${item.product.name}">Tên sản phẩm</p>
+                <p class="product-price">
+                    <span class="price" th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">Giá tiền</span>
+                </p>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
     <div th:replace="~{fragments :: footer}"></div>
 

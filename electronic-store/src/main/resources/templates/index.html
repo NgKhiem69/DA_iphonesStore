@@ -19,9 +19,9 @@
                 <div class="col" th:each="sp : ${products}">
                     <div class="card h-100 shadow-sm position-relative">
                         
-                        <a href="javascript:void(0)" class="wishlist-btn position-absolute top-0 end-0 p-2 text-danger" th:data-id="${sp.id}">
-                            <i class="bi bi-heart"></i>
-                        </a>
+                        <a th:href="@{/wishlist/add/{id}(id=${sp.id})}" class="wishlist-btn position-absolute top-0 end-0 p-2 text-danger">
+    						<i class="bi bi-heart"></i>
+						</a>
 
                         <img th:if="${sp.imageUrl != null and !sp.imageUrl.isEmpty()}" 
                              th:src="${sp.imageUrl}" 

@@ -27,7 +27,10 @@ public class WishlistController {
 
     @GetMapping
     public String viewWishlist(Model model, HttpSession session) {
-        Long userId = getOrCreateUserId(session);
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
         List<WishlistItem> items = wishlistService.getWishlistByUser(userId);
         model.addAttribute("wishlistItems", items);
         model.addAttribute("wishlistCount", items.size());
@@ -36,7 +39,10 @@ public class WishlistController {
 
     @GetMapping("/add/{productId}")
     public String addToWishlist(@PathVariable("productId") Long productId, HttpSession session) {
-        Long userId = getOrCreateUserId(session);
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
         wishlistService.addToWishlist(productId, userId);
         return "redirect:/wishlist";
     }

@@ -18,16 +18,9 @@
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">About</a></li>
-                <li class="nav-item" th:if="${session.userId == null}">
-        		<a class="nav-link text-dark text-decoration-underline" 
-           		th:if="${#httpServletRequest.requestURI == '/login'}" 
-           		th:href="@{/signup}">Sign in</a>
-           
-        		<a class="nav-link text-dark text-decoration-underline" 
-           		th:unless="${#httpServletRequest.requestURI == '/login'}" 
-           		th:href="@{/login}">Log in</a>
+        		<li class="nav-item" th:if="${session.userId == null}">
+        		<a class="nav-link text-dark" th:href="@{/login}">Log in</a>
     			</li>
-    
     			<li class="nav-item" th:if="${session.userId != null}">
         		<a class="nav-link text-danger fw-bold" th:href="@{/logout}">Log out</a>
     			</li>
@@ -35,13 +28,13 @@
             
             <div class="header-actions">
                 <input type="text" class="search-box" placeholder="What are you looking for?">
-                <a th:href="@{/wishlist}" class="icon-btn position-relative">
-    				<i class="bi bi-heart"></i>
-   					<span th:if="${wishlistCount > 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 10px;" th:text="${wishlistCount}">0</span>
-				</a>
-                <a th:href="@{/cart}" class="icon-btn">
-   					 <i class="bi bi-cart3"></i>
-				</a>
+               <a th:href="${session.userId != null ? '/wishlist' : '/login'}" class="icon-btn position-relative me-3 text-dark">
+    <i class="bi bi-heart fs-4"></i>
+    <span th:if="${session.userId != null && wishlistCount > 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 10px;" th:text="${wishlistCount}">0</span>
+</a>
+                <a th:href="${session.userId != null ? '/cart' : '/login'}" class="icon-btn position-relative me-3 text-dark">
+    <i class="bi bi-cart3 fs-4"></i>
+</a>
                 <a th:href="@{/profile}" class="icon-btn">
     				<i class="bi bi-person"></i>
 				</a>		

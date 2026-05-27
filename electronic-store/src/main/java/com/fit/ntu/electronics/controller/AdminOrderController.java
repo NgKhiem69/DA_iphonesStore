@@ -33,7 +33,7 @@ public class AdminOrderController {
             order.setStatus(status);
             orderRepository.save(order);
 
-            String recipientEmail = "email_cua_ban_de_test@gmail.com";
+            String recipientEmail = "gk699488@gmail.com";
             
             if (order.getUser() != null && order.getUser().getEmail() != null) {
                 recipientEmail = order.getUser().getEmail();

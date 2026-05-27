@@ -84,11 +84,13 @@
                         <div class="mb-5">
                             <input type="password" name="password" class="form-control form-underline fs-5" placeholder="Mật khẩu" required>
                         </div>
+                        <div th:if="${param.resetSuccess}" class="alert alert-success py-2 mb-4">Đổi mật khẩu thành công! Vui lòng đăng nhập lại.</div>
+
+						<div class="d-flex justify-content-between align-items-center mb-5">
+    						<button type="submit" class="btn btn-exclusive px-5 fs-5">Đăng nhập</button>
+    						<a th:href="@{/forgot-password}" class="text-danger text-decoration-none fw-medium fs-5">Quên mật khẩu?</a>
+						</div>
                         
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <button type="submit" class="btn btn-exclusive fs-5">Đăng nhập</button>
-                            <a href="#" class="link-exclusive fs-5">Quên mật khẩu?</a>
-                        </div>
                     </form>
                     
                     	<div class="mt-5 fs-5">

@@ -46,7 +46,12 @@ public class AdminOrderController {
                     + "<p>Hệ thống điện tử đang xử lý kiện hàng của bạn.</p>"
                     + "</div>";
 
-            emailService.sendOrderEmail(recipientEmail, emailContent);
+            try {
+                emailService.sendOrderEmail(recipientEmail, emailContent);
+            } catch (Exception e) {
+                // In lỗi ra console để debug thay vì làm sập trang web
+                System.err.println("Lỗi gửi email cho đơn hàng " + orderId + ": " + e.getMessage());
+            }
         }
         return "redirect:/admin/orders";
     }

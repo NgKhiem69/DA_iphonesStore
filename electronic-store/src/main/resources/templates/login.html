@@ -6,35 +6,98 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .login-image-container {
+            background-color: #dbedf2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 550px;
+            padding: 20px;
+        }
+        .login-image-container img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .login-form-container {
+            padding: 80px;
+        }
+        .form-underline {
+            border: none;
+            border-bottom: 1px solid #b3b3b3;
+            border-radius: 0;
+            padding: 12px 0;
+            box-shadow: none !important;
+            transition: border-color 0.3s;
+        }
+        .form-underline:focus {
+            border-bottom-color: #db4444;
+        }
+        .btn-exclusive {
+            background-color: #db4444;
+            color: white;
+            border: none;
+            padding: 16px 48px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn-exclusive:hover {
+            background-color: #c93030;
+            color: white;
+        }
+        .link-exclusive {
+            color: #db4444;
+            text-decoration: none;
+        }
+        .link-exclusive:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body class="bg-white">
 
     <div th:replace="~{fragments :: header}"></div>
 
-    <main class="container my-5">
-        <div class="row align-items-center justify-content-center" style="min-height: 60vh;">
-            <div class="col-md-5">
-                <div class="p-5 shadow-sm border rounded bg-white">
-                    <h3 class="fw-bold mb-2">Log in to Exclusive</h3>
-                    <p class="text-muted mb-4">Enter your details below</p>
-                    
-                    <div th:if="${error}" class="alert alert-danger text-center py-2" th:text="${error}"></div>
-                    
-                    <form th:action="@{/login}" method="post">
-                        <div class="mb-3">
-                            <input type="email" name="email" class="form-control py-3 border-0 border-bottom rounded-0 px-0 shadow-none" placeholder="Email or Phone Number" required>
-                        </div>
-                        <div class="mb-4">
-                            <input type="password" name="password" class="form-control py-3 border-0 border-bottom rounded-0 px-0 shadow-none" placeholder="Password" required>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button type="submit" class="btn btn-danger px-5 py-3 fw-medium" style="background-color: #db4444; border: none;">Log In</button>
-                            <a href="#" class="text-danger text-decoration-none">Forget Password?</a>
-                        </div>
-                    </form>
+    <main class="container-fluid px-0 my-5">
+        <div class="row g-0 align-items-center">
+            
+            <div class="col-md-6 col-lg-7">
+                <div class="login-image-container">
+                    <img src="https://th.bing.com/th/id/OIP.-rYhJPuUpGbsgKGUlZMRtQHaE7?w=280&h=187&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" th:src="@{/images/login-side.png}" alt="Shopping Cart">
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="login-form-container">
+                    <h2 class="fw-bold mb-3 fs-1">Đăng nhập vào Exclusive</h2>
+                    <p class="text-dark mb-5 fs-5">Nhập thông tin của bạn bên dưới</p>
+                    
+                    <div th:if="${error}" class="alert alert-danger py-2 mb-4" th:text="${error}"></div>
+                    
+                    <form th:action="@{/login}" method="post">
+                        <div class="mb-4">
+                            <input type="text" name="email" class="form-control form-underline fs-5" placeholder="Email hoặc Số điện thoại" required>
+                        </div>
+                        <div class="mb-5">
+                            <input type="password" name="password" class="form-control form-underline fs-5" placeholder="Mật khẩu" required>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <button type="submit" class="btn btn-exclusive fs-5">Đăng nhập</button>
+                            <a href="#" class="link-exclusive fs-5">Quên mật khẩu?</a>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-5 fs-5">
+                        <span class="text-muted">Chưa có tài khoản?</span>
+                        <a href="#" class="link-exclusive fw-medium ms-2">Đăng ký ngay</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 

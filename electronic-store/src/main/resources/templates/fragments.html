@@ -18,7 +18,12 @@
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li class="nav-item" th:if="${session.userId == null}">
+        		<a class="nav-link text-dark" th:href="@{/login}">Log in</a>
+    			</li>
+    			<li class="nav-item" th:if="${session.userId != null}">
+        		<a class="nav-link text-danger fw-bold" th:href="@{/logout}">Log out</a>
+    			</li>
             </ul>
             
             <div class="header-actions">

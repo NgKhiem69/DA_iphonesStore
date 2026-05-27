@@ -18,7 +18,7 @@ public class HomeController {
     private CategoryService categoryService;
 
     @GetMapping("/")
-    public String index(@RequestParam(required = false) Long categoryId, Model model) {
+    public String index(@RequestParam(name = "categoryId", required = false) Long categoryId, Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
         if (categoryId != null) {
             model.addAttribute("products", productService.getProductsByCategoryId(categoryId));

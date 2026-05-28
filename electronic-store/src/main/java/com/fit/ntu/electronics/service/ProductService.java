@@ -34,4 +34,7 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+    public Page<Product> getRelatedProducts(Long categoryId, Long productId, Pageable pageable) {
+        return productRepository.findByCategoryIdAndIdNot(categoryId, productId, pageable);
+    }
 }

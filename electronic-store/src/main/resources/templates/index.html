@@ -77,8 +77,7 @@
 
                             <div class="card-body">
                                 <h6 class="card-title">
-                                    <a th:href="@{/cart/add/{id}(id=${sp.id})}" class="text-decoration-none text-dark" th:text="${sp.name}"></a>
-                                </h6>
+									<a th:href="@{/product/{id}(id=${sp.id})}" class="text-decoration-none text-dark" th:text="${sp.name}"></a>                                </h6>
                                 <div class="fw-bold text-danger fs-5" th:text="${#numbers.formatDecimal(sp.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></div>
                             </div>
 

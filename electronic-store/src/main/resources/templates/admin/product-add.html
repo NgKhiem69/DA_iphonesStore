@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Sản Phẩm - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container my-5">
+        <div class="card shadow-sm border-0 max-width-600 mx-auto">
+            <div class="card-body p-5">
+                <h2 class="fw-bold mb-4 text-center">Thêm Sản Phẩm Mới</h2>
+                
+                <form th:action="@{/admin/products/add}" th:object="${product}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Tên sản phẩm</label>
+                        <input type="text" th:field="*{name}" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Danh mục sản phẩm</label>
+                        <select th:field="*{category}" class="form-select" required>
+                            <option value="">-- Chọn danh mục --</option>
+                            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Giá sản phẩm (₫)</label>
+                        <input type="number" th:field="*{price}" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">Đường dẫn ảnh (URL)</label>
+                        <input type="text" th:field="*{imageUrl}" class="form-control">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">Mô tả sản phẩm</label>
+                        <textarea th:field="*{description}" class="form-control" rows="5"></textarea>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4">Lưu sản phẩm</button>
+                        <a th:href="@{/admin/products}" class="btn btn-outline-secondary px-4">Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

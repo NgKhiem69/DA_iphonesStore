@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -44,5 +46,25 @@ public class HomeController {
         model.addAttribute("selectedCategory", categoryId);
         
         return "index";
+    }
+
+    @GetMapping("/product/{id}")
+    public String productDetail(@PathVariable("id") Long id, Model model) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        
+        if (optionalProduct.isEmpty()) {
+            return "redirect:/";
+        }
+        
+        Product product = optionalProduct.get();
+        
+        Pageable pageable = PageRequest.of(0, 4);
+        Page<Product> relatedProducts = productRepository.findByCategoryIdAndIdNot(
+                product.getCategory().getId(), id, pageable);
+        
+        model.addAttribute("product", product);
+        model.addAttribute("relatedProducts", relatedProducts.getContent());
+        
+        return "product-detail";
     }
 }

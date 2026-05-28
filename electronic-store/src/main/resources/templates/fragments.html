@@ -27,11 +27,18 @@
             </ul>
             
             <div class="header-actions">
-                <input type="text" class="search-box" placeholder="What are you looking for?">
+               <form th:action="@{/}" method="get" class="position-relative me-3 m-0">
+        <input type="text" name="keyword" class="search-box form-control border-0 bg-light" 
+               placeholder="What are you looking for?" th:value="${keyword}"
+               style="padding-right: 40px; border-radius: 4px;">
+        <button type="submit" class="btn position-absolute top-50 end-0 translate-middle-y border-0 p-0 pe-2">
+            <i class="bi bi-search"></i>
+        </button>
+    </form>
                <a th:href="${session.userId != null ? '/wishlist' : '/login'}" class="icon-btn position-relative me-3 text-dark">
-    <i class="bi bi-heart fs-4"></i>
-    <span th:if="${session.userId != null && wishlistCount > 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 10px;" th:text="${wishlistCount}">0</span>
-</a>
+    				<i class="bi bi-heart fs-4"></i>
+    				<span th:if="${session.userId != null && wishlistCount > 0}" class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger" style="font-size: 10px;" th:text="${wishlistCount}">0</span>
+				</a>
                 <a th:href="${session.userId != null ? '/cart' : '/login'}" class="icon-btn position-relative me-3 text-dark">
     <i class="bi bi-cart3 fs-4"></i>
 </a>

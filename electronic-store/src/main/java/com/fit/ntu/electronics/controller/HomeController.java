@@ -27,6 +27,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(@RequestParam(value = "categoryId", required = false) Long categoryId,
+                        @RequestParam(value = "keyword", required = false) String keyword,
                         @RequestParam(value = "page", defaultValue = "0") int page,
                         Model model) {
         
@@ -35,7 +36,9 @@ public class HomeController {
         Pageable pageable = PageRequest.of(page, 16);
         Page<Product> productPage;
 
-        if (categoryId != null) {
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            productPage = productRepository.findByNameContainingIgnoreCase(keyword.trim(), pageable);
+        } else if (categoryId != null) {
             productPage = productRepository.findByCategoryId(categoryId, pageable);
         } else {
             productPage = productRepository.findAll(pageable);
@@ -44,6 +47,7 @@ public class HomeController {
         model.addAttribute("categories", categories);
         model.addAttribute("productPage", productPage);
         model.addAttribute("selectedCategory", categoryId);
+        model.addAttribute("keyword", keyword);
         
         return "index";
     }

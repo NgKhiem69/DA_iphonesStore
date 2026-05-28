@@ -57,13 +57,16 @@ public class HomeController {
         }
         
         Product product = optionalProduct.get();
-        
-        Pageable pageable = PageRequest.of(0, 4);
-        Page<Product> relatedProducts = productRepository.findByCategoryIdAndIdNot(
-                product.getCategory().getId(), id, pageable);
-        
         model.addAttribute("product", product);
-        model.addAttribute("relatedProducts", relatedProducts.getContent());
+        
+        if (product.getCategory() != null) {
+            Pageable pageable = PageRequest.of(0, 4);
+            Page<Product> relatedProducts = productRepository.findByCategoryIdAndIdNot(
+                    product.getCategory().getId(), id, pageable);
+            model.addAttribute("relatedProducts", relatedProducts.getContent());
+        } else {
+            model.addAttribute("relatedProducts", java.util.List.of());
+        }
         
         return "product-detail";
     }

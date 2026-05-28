@@ -38,10 +38,12 @@
     <main class="container my-5">
         <nav aria-label="breadcrumb" class="mb-5">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a th:href="@{/}" class="text-secondary text-decoration-none">Home</a></li>
-                <li class="breadcrumb-item"><a th:href="@{/(categoryId=${product.category.id})}" class="text-secondary text-decoration-none" th:text="${product.category.name}"></a></li>
-                <li class="breadcrumb-item active text-dark fw-medium" aria-current="page" th:text="${product.name}"></li>
-            </ol>
+    <li class="breadcrumb-item"><a th:href="@{/}" class="text-secondary text-decoration-none">Home</a></li>
+    <li class="breadcrumb-item" th:if="${product.category != null}">
+        <a th:href="@{/(categoryId=${product.category.id})}" class="text-secondary text-decoration-none" th:text="${product.category.name}"></a>
+    </li>
+    <li class="breadcrumb-item active text-dark fw-medium" aria-current="page" th:text="${product.name}"></li>
+</ol>
         </nav>
 
         <div class="row mb-5 pb-5 border-bottom">

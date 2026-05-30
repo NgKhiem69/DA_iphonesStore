@@ -55,4 +55,13 @@ public class AdminOrderController {
         }
         return "redirect:/admin/orders";
     }
+    @GetMapping("/detail/{id}")
+    public String orderDetail(@PathVariable("id") Long id, Model model) {
+        Order order = orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            return "redirect:/admin/orders";
+        }
+        model.addAttribute("order", order);
+        return "admin/order-detail";
+    }
 }

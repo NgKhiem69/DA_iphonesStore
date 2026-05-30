@@ -51,6 +51,23 @@ public class HomeController {
         
         return "index";
     }
+    @GetMapping("/profile/order/{id}")
+    public String customerOrderDetail(@PathVariable("id") Long id, jakarta.servlet.http.HttpSession session, Model model) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+        
+        Order order = productRepository.findById(id).isPresent() ? null : orderRepository.findById(id).orElse(null);
+        order = orderRepository.findById(id).orElse(null);
+        
+        if (order == null || order.getUser() == null || !order.getUser().getId().equals(userId)) {
+            return "redirect:/";
+        }
+        
+        model.addAttribute("order", order);
+        return "customer-order-detail";
+    }
 
     @GetMapping("/product/{id}")
     public String productDetail(@PathVariable("id") Long id, Model model) {

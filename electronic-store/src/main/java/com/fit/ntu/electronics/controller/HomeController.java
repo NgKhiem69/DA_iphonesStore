@@ -2,8 +2,11 @@ package com.fit.ntu.electronics.controller;
 
 import com.fit.ntu.electronics.model.Product;
 import com.fit.ntu.electronics.model.Category;
+import com.fit.ntu.electronics.model.Order;
 import com.fit.ntu.electronics.repository.ProductRepository;
 import com.fit.ntu.electronics.repository.CategoryRepository;
+import com.fit.ntu.electronics.repository.OrderRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +27,9 @@ public class HomeController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping("/")
     public String index(@RequestParam(value = "categoryId", required = false) Long categoryId,
@@ -51,6 +57,7 @@ public class HomeController {
         
         return "index";
     }
+
     @GetMapping("/profile/order/{id}")
     public String customerOrderDetail(@PathVariable("id") Long id, jakarta.servlet.http.HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");
@@ -58,8 +65,7 @@ public class HomeController {
             return "redirect:/login";
         }
         
-        Order order = productRepository.findById(id).isPresent() ? null : orderRepository.findById(id).orElse(null);
-        order = orderRepository.findById(id).orElse(null);
+        Order order = orderRepository.findById(id).orElse(null);
         
         if (order == null || order.getUser() == null || !order.getUser().getId().equals(userId)) {
             return "redirect:/";

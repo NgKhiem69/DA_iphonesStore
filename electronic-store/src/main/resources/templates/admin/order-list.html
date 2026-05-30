@@ -33,29 +33,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="dh : ${orders}">
-                                    <td th:text="'#' + ${dh.id}"></td>
-                                    <td th:text="${dh.user != null ? dh.user.email : 'Khách vãng lai'}"></td>
-                                    <td th:text="${dh.phone}"></td>
-                                    <td th:text="${#numbers.formatDecimal(dh.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' ₫'" class="text-danger fw-bold"></td>
-                                    <td>
-                                        <span th:text="${dh.status}" 
-                                              th:class="${dh.status == 'Đang chờ duyệt'} ? 'badge bg-warning text-dark' : (${dh.status == 'Đang giao hàng'} ? 'badge bg-primary' : 'badge bg-success')">
-                                        </span>
-                                    </td>
-                                    <td class="text-center">
-                                        <form th:action="@{/admin/orders/update-status}" method="post" class="d-flex gap-2 justify-content-center">
-                                            <input type="hidden" name="orderId" th:value="${dh.id}" />
-                                            <select name="status" class="form-select form-select-sm" style="width: 160px;">
-                                                <option value="Đang chờ duyệt" th:selected="${dh.status == 'Đang chờ duyệt'}">Đang chờ duyệt</option>
-                                                <option value="Đang giao hàng" th:selected="${dh.status == 'Đang giao hàng'}">Đang giao hàng</option>
-                                                <option value="Đã hoàn thành" th:selected="${dh.status == 'Đã hoàn thành'}">Đã hoàn thành</option>
-                                            </select>
-                                            <button type="submit" class="btn btn-sm btn-dark">Cập nhật</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="'#' + ${order.id}"></td>
+        <td th:text="${order.user != null ? order.user.email : 'Ẩn danh'}"></td>
+        <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${order.totalPrice != null ? #numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') : 0} + ' ₫'"></td>
+        <td>
+            <span class="badge" 
+                  th:classappend="${order.status == 'Đã giao' ? 'bg-success' : (order.status == 'Đã hủy' ? 'bg-secondary' : 'bg-primary')}"
+                  th:text="${order.status}"></span>
+        </td>
+        <td>
+            <a th:href="@{/admin/orders/detail/{id}(id=${order.id})}" class="btn btn-sm btn-info text-white">Xem chi tiết</a>
+        </td>
+    </tr>
+</tbody>
                         </table>
                     </div>
                 </div>

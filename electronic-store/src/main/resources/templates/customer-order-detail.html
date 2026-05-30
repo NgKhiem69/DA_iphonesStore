@@ -68,7 +68,7 @@
                     <a th:href="@{/profile}" class="btn btn-outline-dark px-4 py-2">Quay lại Tài khoản</a>
                     <div class="text-end">
                         <span class="fs-5 text-secondary me-2">Thành tiền:</span>
-                        <span class="fs-3 fw-bold text-exclusive" th:text="${#numbers.formatDecimal(order.orderDetails.?[true].![price * quantity].sum(), 0, 'COMMA', 0, 'POINT')} + ' ₫'"></span>
+                       <span class="fs-3 fw-bold text-exclusive" th:text="${order.totalPrice != null ? #numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') : 0} + ' ₫'"></span>
                     </div>
                 </div>
             </div>

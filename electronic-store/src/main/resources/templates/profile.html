@@ -27,6 +27,7 @@
                 <div class="menu-title">Manage My Account</div>
                 <ul>
                     <li><a href="#" class="active">My Profile</a></li>
+                    
                 </ul>
                 <div class="menu-title"><a href="/wishlist" class="text-dark fw-bold text-decoration-none">My WishList</a></div>
             </div>
@@ -78,6 +79,47 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="card border shadow-sm mt-5">
+                    <div class="card-body p-4">
+                        <h4 class="text-danger fw-bold mb-4">Lịch sử mua hàng</h4>
+                        
+                        <div class="table-responsive" th:if="${orders != null and !orders.isEmpty()}">
+                            <table class="table align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="order : ${orders}">
+                                        <td>
+                                            <strong th:text="'#' + ${order.id}"></strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge px-2 py-1" 
+                                                  th:classappend="${order.status == 'Đã giao' ? 'bg-success' : (order.status == 'Đã hủy' ? 'bg-secondary' : 'bg-primary')}"
+                                                  th:text="${order.status}"></span>
+                                        </td>
+                                        <td class="fw-bold text-danger" th:text="${order.totalPrice != null ? #numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT') : 0} + ' ₫'"></td>
+                                        <td>
+                                            <a th:href="@{/profile/order/{id}(id=${order.id})}" class="btn btn-sm btn-outline-danger">Xem chi tiết</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div th:unless="${orders != null and !orders.isEmpty()}" class="text-center py-4">
+                            <i class="bi bi-bag-x text-secondary" style="font-size: 3rem;"></i>
+                            <p class="text-secondary mt-2 mb-0">Bạn chưa thực hiện đơn đặt hàng nào.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

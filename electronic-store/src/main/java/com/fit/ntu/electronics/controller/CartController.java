@@ -2,6 +2,7 @@ package com.fit.ntu.electronics.controller;
 
 import com.fit.ntu.electronics.model.CartItem;
 import com.fit.ntu.electronics.model.Order;
+import com.fit.ntu.electronics.model.OrderDetail;
 import com.fit.ntu.electronics.model.User;
 import com.fit.ntu.electronics.repository.OrderRepository;
 import com.fit.ntu.electronics.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -55,24 +57,44 @@ public class CartController {
         double total = 0;
         StringBuilder productListHtml = new StringBuilder();
 
+        // KHỞI TẠO DANH SÁCH CHI TIẾT ĐƠN HÀNG
+        List<OrderDetail> orderDetailsList = new ArrayList<>();
+        Order order = new Order(); // Khởi tạo Order ở đây để có thể gán vào OrderDetail
+
         for (CartItem item : cartItems) {
-        	double subtotal = item.getProduct().getPrice().doubleValue() * item.getQuantity();
+            double subtotal = item.getProduct().getPrice().doubleValue() * item.getQuantity();
             total += subtotal;
 
+            // Xây dựng chuỗi HTML gửi email
             productListHtml.append("<tr>")
                 .append("<td style='padding: 10px; border: 1px solid #ddd;'>").append(item.getProduct().getName()).append("</td>")
                 .append("<td style='padding: 10px; border: 1px solid #ddd; text-align: center;'>").append(item.getQuantity()).append("</td>")
                 .append("<td style='padding: 10px; border: 1px solid #ddd; text-align: right;'>").append(String.format("%,.0f", subtotal)).append(" VNĐ</td>")
                 .append("</tr>");
+
+            // QUAN TRỌNG: Tạo đối tượng OrderDetail để lưu vào Database
+            OrderDetail detail = new OrderDetail();
+            detail.setProduct(item.getProduct());
+            detail.setQuantity(item.getQuantity());
+            detail.setPrice(item.getProduct().getPrice()); // Lưu lại giá tại thời điểm mua
+            
+            // Ràng buộc quan hệ 2 chiều: Gắn Order vào OrderDetail
+            detail.setOrder(order); 
+            
+            orderDetailsList.add(detail);
         }
 
-        // 3. Tạo đơn hàng và gắn chặt với User
-        Order order = new Order();
+        // 3. Thiết lập thông tin đơn hàng và gắn chặt với User
         order.setUser(currentUser);
         order.setAddress(currentUser.getAddress() != null ? currentUser.getAddress() : "Chưa cập nhật địa chỉ");
         order.setPhone("0123456789"); // Có thể bổ sung cột số điện thoại vào bảng User sau
         order.setTotalPrice(BigDecimal.valueOf(total));
         order.setStatus("Đang chờ duyệt");
+        
+        // Gắn danh sách chi tiết vừa tạo vào đơn hàng
+        order.setOrderDetails(orderDetailsList);
+        
+        // Lưu đơn hàng (Nhờ CascadeType.ALL cấu hình trong Order.java, JPA sẽ tự động lưu tất cả OrderDetail vào bảng order_details)
         orderRepository.save(order);
 
         // 4. Gửi email xác nhận (Bọc try-catch để không sập web nếu mạng lỗi)
